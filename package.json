@@ -1,0 +1,25 @@
+{
+  "name": "prexition-plugin-voip",
+  "version": "1.0.0-dev",
+  "description": "Sinch VOIP Plugin",
+  "cordova": {
+    "id": "prexition-plugin-voip",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "scripts": {
+  },
+  "author": "Prexition",
+  "license": "Apache-2.0",
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "devDependencies": {
+  }
+}

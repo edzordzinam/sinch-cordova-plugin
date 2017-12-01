@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="prexition-plugin-voip"
+        version="0.0.1">
+
+    <name>VoIP</name>
+
+    <engines>
+        <engine name="cordova" version=">=3.4.0"/>
+    </engines>
+
+    <asset src="www/call.js" target="js/call.js"/>
+
+    <js-module src="www/call.js" name="call">
+        <clobbers target="call"/>
+    </js-module>
+
+    <platform name="android">
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Call">
+                <param name="android-package" value="prexition.plugin.voip.CallActivity"/>
+            </feature>
+        </config-file>
+
+
+        <!-- Gradle config -->
+        <framework custom="true" src="src/android/gradle/prexition-voip.gradle" type="gradleReference"/>
+
+        <!-- Manifest changes -->
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+            <uses-feature android:name="android.hardware.microphone" android:required="false"/>
+
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:name="prexition.plugin.voip.SinchService"></service>
+        </config-file>
+
+        <source-file src="src/android/libs/sinch-android-rtc-3.12.3.aar" target-dir="libs" framework="true"/>
+        <source-file src="src/android/CallActivity.java" target-dir="src/prexition/plugin/voip/"/>
+        <source-file src="src/android/AudioPlayer.java" target-dir="src/prexition/plugin/voip/"/>
+        <source-file src="src/android/SinchService.java" target-dir="src/prexition/plugin/voip/"/>
+        <source-file src="src/android/JSONErrorFactory.java" target-dir="src/prexition/plugin/voip/"/>
+        <source-file src="src/android/PermissionHelper.java" target-dir="src/prexition/plugin/voip/"/>
+
+        <resource-file src="src/android/res/raw/progress_tone.wav" target="res/raw/progress_tone.wav"/>
+
+    </platform>
+
+    <platform name="ios">
+
+        <config-file target="config.xml" parent="/widget">
+            <feature name="Call">
+                <param name="ios-package" value="HWPCall"/>
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/HWPCall.h" target-dir="CallPlugin"/>
+        <source-file src="src/ios/HWPCall.m" target-dir="CallPlugin"/>
+
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+            <array>
+                <string>audio</string>
+            </array>
+        </config-file>
+
+        <resource-file src="src/ios/progresstone.wav"/>
+
+        <pods-config ios-min-version="9.0" use-frameworks="true">
+            <!-- optionally add private spec sources -->
+        </pods-config>
+
+        <!-- use the latest version of a pod -->
+        <pod name="SinchRTC"/> 
+        <framework src="AVFoundation.framework"/>
+        <framework src="Security.framework"/>
+        <framework src="AudioToolbox.framework"/>
+        <framework src="VideoToolbox.framework"/>
+        <framework src="CoreMedia.framework"/>
+        <framework src="CoreVideo.framework"/>
+        <framework src="CoreImage.framework"/>
+        <framework src="GLKit.framework"/>
+        <framework src="OpenGLES.framework"/>
+        <framework src="QuartzCore.framework"/>
+
+        <dependency id="cordova-plugin-cocoapod-support"/>
+
+    </platform>
+
+
+</plugin>
