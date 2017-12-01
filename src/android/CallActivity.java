@@ -55,6 +55,7 @@ public class CallActivity extends CordovaPlugin implements SinchService.StartFai
     private String phoneNumber;
     private String customerName;
     private Integer bookingId;
+    private String userId;
 
     private String mCallId;
 
@@ -79,7 +80,7 @@ public class CallActivity extends CordovaPlugin implements SinchService.StartFai
 
             Log.d(TAG, "SinchClient started native");
 
-            String userId = data.getString(0);
+            userId = data.getString(0);
 
             if (!hasPermissions()) {
                 Log.d(TAG, "Requesting permissions from user");
@@ -186,10 +187,18 @@ public class CallActivity extends CordovaPlugin implements SinchService.StartFai
         }
         switch (requestCode) {
             case 0:
+
+                //continue and start..
+                callService = new SinchService();
+                callService.setStartListener(this);
+                callService.startClient(userId, cordova.getActivity().getApplicationContext());
+
                 PluginResult result;
                 result = new PluginResult(PluginResult.Status.ERROR, 0);
                 result.setKeepCallback(true);
                 onCallStartedCallbackContext.sendPluginResult(result);
+
+
                 break;
         }
     }
@@ -206,8 +215,12 @@ public class CallActivity extends CordovaPlugin implements SinchService.StartFai
         mAudioPlayer.stopProgressTone();
         if (callInProgress != null) {
             //stop timer
-            mDurationTask.cancel();
-            mTimer.cancel();
+
+            if (mDurationTask != null) {
+                mDurationTask.cancel();
+                mTimer.cancel();
+            }
+
             callInProgress.hangup();
         }
 
