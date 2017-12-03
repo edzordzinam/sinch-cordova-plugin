@@ -28,8 +28,6 @@ import org.apache.cordova.LOG;
 
 import android.content.pm.PackageManager;
 
-import com.marianhello.bgloc.LocationService;
-
 /**
  * This class provides reflective methods for permission requesting and checking so that plugins
  * written for cordova-android 5.0.0+ can still compile with earlier cordova-android versions.

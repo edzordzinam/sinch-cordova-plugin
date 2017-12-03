@@ -7,7 +7,6 @@ import org.json.JSONException;
 import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.PushPair;
-import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallDetails;
 import com.sinch.android.rtc.calling.CallEndCause;
 import com.sinch.android.rtc.calling.CallListener;
