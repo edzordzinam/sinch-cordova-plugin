@@ -33,7 +33,7 @@ public class CallActivity extends CordovaPlugin implements SinchService.StartFai
 
     private boolean isPermitted;
 
-    public static final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_PHONE_STATE};
+    public static final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.READ_PHONE_STATE};
 
     //callbacks
     private CallbackContext onClientStartedCallbackContext;
