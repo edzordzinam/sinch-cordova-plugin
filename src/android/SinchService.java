@@ -6,14 +6,9 @@ import com.sinch.android.rtc.SinchClient;
 import com.sinch.android.rtc.SinchClientListener;
 import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.calling.Call;
-import com.sinch.android.rtc.calling.CallClient;
-import com.sinch.android.rtc.calling.CallClientListener;
 
-import android.app.Service;
 import android.content.Context;
 import android.util.Log;
-
-import org.apache.cordova.CallbackContext;
 
 public class SinchService {
 
@@ -86,6 +81,10 @@ public class SinchService {
         start(userName);
     }
 
+    public SinchClient getClient(){
+        return this.mSinchClient;
+    }
+
     public void stopClient() {
         stop();
     }
@@ -121,7 +120,7 @@ public class SinchService {
             Log.d(TAG, "SinchClient client started");
             if (mListener != null) {
                 mListener.onStarted();
-            }else{
+            } else {
                 Log.d(TAG, "mListener is null started");
             }
         }
