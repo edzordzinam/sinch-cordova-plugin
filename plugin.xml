@@ -66,6 +66,13 @@
         <resource-file src="src/android/res/mipmap-xxhdpi/loudspeaker_on.png" target="res/mipmap-xxhdpi/loudspeaker_on.png"/>
         <resource-file src="src/android/res/mipmap-xxxhdpi/loudspeaker_on.png" target="res/mipmap-xxxhdpi/loudspeaker_on.png"/>
 
+        <resource-file src="src/android/res/mipmap-hdpi/hangup.png" target="res/mipmap-hdpi/hangup.png"/>
+        <resource-file src="src/android/res/mipmap-mdpi/hangup.png" target="res/mipmap-mdpi/hangup.png"/>
+        <resource-file src="src/android/res/mipmap-xhdpi/hangup.png" target="res/mipmap-xhdpi/hangup.png"/>
+        <resource-file src="src/android/res/mipmap-xxhdpi/hangup.png" target="res/mipmap-xxhdpi/hangup.png"/>
+        <resource-file src="src/android/res/mipmap-xxxhdpi/hangup.png" target="res/mipmap-xxxhdpi/hangup.png"/>
+
+
         <resource-file src="src/android/res/drawable/roundcorner.xml" target="res/drawable/roundcorner.xml"/>
         <resource-file src="src/android/res/drawable/roundcorner_black.xml" target="res/drawable/roundcorner_black.xml"/>
 
