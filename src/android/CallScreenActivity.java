@@ -91,7 +91,6 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
             Log.d(TAG, "Sinch Service Started");
         }
 
-        //call is initiated once sinch on start is received
     }
 
 
@@ -150,7 +149,14 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
     public void onStartFailed(SinchError error) {
         Log.d(TAG, "Sinch Service FAILED to start");
 
-        //enable the retry button
+        mCallState.setText("Connection failed, retrying...");
+
+        //attempting to restart
+        if (!callService.isStarted()) {
+            callService.setStartListener(this);
+            callService.startClient(userId, this);
+            Log.d(TAG, "Sinch Service Started");
+        }
     }
 
     private void endCall() {
