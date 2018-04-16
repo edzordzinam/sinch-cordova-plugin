@@ -5,6 +5,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 
+import android.app.PendingIntent;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -18,13 +20,15 @@ public class CallPlugin extends CordovaPlugin {
     private boolean isPermitted;
 
     public static final String[] permissions = {Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.READ_PHONE_STATE};
-    
+    public static final String[] sms_permissions = {Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE};
+
 
     private String phoneNumber;
     private String customerName;
     private String customerAddress;
     private Integer bookingId;
     private String userId;
+    private String message;
 
     private String mCallId;
 
@@ -38,6 +42,16 @@ public class CallPlugin extends CordovaPlugin {
         intent.putExtra("USER_ID", userId);
 
         this.cordova.getActivity().startActivity(intent);
+    }
+
+
+    private void sendSMS(Context context) {
+        if (this.cordova.getActivity().getPackageManager().hasSystemFeature("android.hardware.telephony")) {
+            int n;
+            PendingIntent sentIntent = PendingIntent.getBroadcast((Context) this.cordova.getActivity(), (int) 0, (Intent) new Intent("SENDING_SMS"), (int) 0);
+            SmsManager sms = SmsManager.getDefault();
+            sms.sendTextMessage(this.phoneNumber, null, this.message, sentIntent, (PendingIntent) null);
+        }
     }
 
     @Override
@@ -73,6 +87,18 @@ public class CallPlugin extends CordovaPlugin {
             return true;
 
 
+        } else if (action.equals("sendSMS")) {
+            phoneNumber = data.getString(0);
+            message = data.getString(1);
+
+            if (!hasSMSPermissions()) {
+                Log.d(TAG, "Requesting permissions from user");
+                callbackContext.error("Permission not granted");
+                PermissionHelper.requestPermissions(this, 1, sms_permissions);
+                return false;
+            }
+
+            this.sendSMS(context);
         }
 
 
@@ -81,6 +107,15 @@ public class CallPlugin extends CordovaPlugin {
 
     public boolean hasPermissions() {
         for (String p : permissions) {
+            if (!PermissionHelper.hasPermission(this, p)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean hasSMSPermissions(){
+        for (String p : sms_permissions) {
             if (!PermissionHelper.hasPermission(this, p)) {
                 return false;
             }
@@ -101,6 +136,10 @@ public class CallPlugin extends CordovaPlugin {
             case 0:
                 //continue and start..
                 this.startVOIPCall(this.cordova.getActivity().getApplicationContext());
+                break;
+
+            case 1:
+                this.sendSMS(this.cordova.getActivity().getApplicationContext());
                 break;
         }
     }
