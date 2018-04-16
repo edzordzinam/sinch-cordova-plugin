@@ -10,6 +10,8 @@ import com.sinch.android.rtc.calling.Call;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.Map;
+
 public class SinchService {
 
     private static final String APP_KEY = "******";
@@ -60,8 +62,8 @@ public class SinchService {
     }
 
 
-    public Call callPhoneNumber(String phoneNumber) {
-        return mSinchClient.getCallClient().callPhoneNumber(phoneNumber);
+    public Call callPhoneNumber(String phoneNumber, Map headers) {
+        return mSinchClient.getCallClient().callPhoneNumber(phoneNumber, headers);
     }
 
     public Call callUser(String userId) {

@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,6 +55,7 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
     private AudioPlayer mAudioPlayer;
     private Timer mTimer;
     private UpdateCallDurationTask mDurationTask;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +142,15 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
         mCallState.setText("Initiating Call");
 
         mAudioPlayer = new AudioPlayer(this, getResources().getIdentifier("progress_tone", "raw", getPackageName()));
-        callInProgress = callService.callPhoneNumber(phoneNumber);
+
+        //add customer data
+        Map<String,String> headers = new HashMap<String, String>();
+        headers.put("customer", this.customerName);
+        headers.put("address", this.customerAddress);
+        headers.put("bookingId", this.bookingId.toString());
+        headers.put("number", this.phoneNumber);
+
+        callInProgress = callService.callPhoneNumber(phoneNumber, headers);
         callInProgress.addCallListener(new SinchCallListener());
     }
 

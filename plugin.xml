@@ -93,6 +93,9 @@
         <header-file src="src/ios/HWPCall.h" target-dir="CallPlugin"/>
         <source-file src="src/ios/HWPCall.m" target-dir="CallPlugin"/>
 
+        <header-file src="src/ios/CallUIViewController.h" target-dir="CallPlugin"/>
+        <source-file src="src/ios/CallUIViewController.m" target-dir="CallPlugin"/>
+
         <config-file target="*-Info.plist" parent="UIBackgroundModes">
             <array>
                 <string>audio</string>
@@ -100,6 +103,8 @@
         </config-file>
 
         <resource-file src="src/ios/progresstone.wav"/>
+        <resource-file src="src/ios/hangup.png"/>
+        <resource-file src="src/ios/CallUI.storyboard" />
 
         <pods-config ios-min-version="9.0" use-frameworks="true">
             <!-- optionally add private spec sources -->
