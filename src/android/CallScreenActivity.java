@@ -120,17 +120,21 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
     }
 
     public void toggleSpeaker(View view) {
-        if (!this.isLoudSpeaker) {
-            callService.getClient().getAudioController().enableSpeaker();
-            bSpeaker.setCompoundDrawablesWithIntrinsicBounds(getResources().getIdentifier("loudspeaker_on", "mipmap", getPackageName()), 0, 0, 0);
-            bSpeaker.setText("Speaker On");
-        } else {
-            callService.getClient().getAudioController().disableSpeaker();
-            bSpeaker.setCompoundDrawablesWithIntrinsicBounds(getResources().getIdentifier("loudspeaker", "mipmap", getPackageName()), 0, 0, 0);
-            bSpeaker.setText("Speaker Off");
-        }
+        if (!callService.isStarted()) {
+            if (!this.isLoudSpeaker) {
+                callService.getClient().getAudioController().enableSpeaker();
+                bSpeaker.setCompoundDrawablesWithIntrinsicBounds(getResources().getIdentifier("loudspeaker_on", "mipmap", getPackageName()), 0, 0, 0);
+                bSpeaker.setText("Speaker On");
+            } else {
+                callService.getClient().getAudioController().disableSpeaker();
+                bSpeaker.setCompoundDrawablesWithIntrinsicBounds(getResources().getIdentifier("loudspeaker", "mipmap", getPackageName()), 0, 0, 0);
+                bSpeaker.setText("Speaker Off");
+            }
 
-        this.isLoudSpeaker = !this.isLoudSpeaker;
+            this.isLoudSpeaker = !this.isLoudSpeaker;
+        } else {
+            //show toast telling user that Call SErvice is not ready yet they should be patient....
+        }
     }
 
 
@@ -172,19 +176,21 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
 
     private void endCall() {
 
-        callService.getClient().getAudioController().disableSpeaker();
-        callService.getClient().getAudioController().unmute();
+        if (!callService.isStarted()) {
+            callService.getClient().getAudioController().disableSpeaker();
+            callService.getClient().getAudioController().unmute();
 
-        mAudioPlayer.stopProgressTone();
-        if (callInProgress != null) {
-            //stop timer
+            mAudioPlayer.stopProgressTone();
+            if (callInProgress != null) {
+                //stop timer
 
-            if (mDurationTask != null) {
-                mDurationTask.cancel();
-                mTimer.cancel();
+                if (mDurationTask != null) {
+                    mDurationTask.cancel();
+                    mTimer.cancel();
+                }
+
+                callInProgress.hangup();
             }
-
-            callInProgress.hangup();
         }
 
     }
