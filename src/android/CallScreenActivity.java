@@ -148,7 +148,7 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
         mAudioPlayer = new AudioPlayer(this, getResources().getIdentifier("progress_tone", "raw", getPackageName()));
 
         //add customer data
-        Map<String,String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<String, String>();
         headers.put("customer", this.customerName);
         headers.put("address", this.customerAddress);
         headers.put("bookingId", this.bookingId.toString());
@@ -157,7 +157,6 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
         callInProgress = callService.callPhoneNumber(phoneNumber, headers);
         callInProgress.addCallListener(new SinchCallListener());
     }
-
 
 
     @Override
@@ -176,6 +175,8 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
 
     private void endCall() {
 
+        //destroy call Service
+
         if (!callService.isStarted()) {
             callService.getClient().getAudioController().disableSpeaker();
             callService.getClient().getAudioController().unmute();
@@ -191,6 +192,13 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
 
                 callInProgress.hangup();
             }
+
+            callService.stopClient();
+            callService = null;
+        } else {
+            //prematurely kill the client and stop it from proceeding to instantiate the call
+            callService.stopClient();
+            callService = null;
         }
 
     }
