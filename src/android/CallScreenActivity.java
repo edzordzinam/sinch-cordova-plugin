@@ -120,7 +120,7 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
     }
 
     public void toggleSpeaker(View view) {
-        if (!callService.isStarted()) {
+        if (callService.isStarted()) {
             if (!this.isLoudSpeaker) {
                 callService.getClient().getAudioController().enableSpeaker();
                 bSpeaker.setCompoundDrawablesWithIntrinsicBounds(getResources().getIdentifier("loudspeaker_on", "mipmap", getPackageName()), 0, 0, 0);
@@ -177,7 +177,7 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
 
         //destroy call Service
 
-        if (!callService.isStarted()) {
+        if (callService.isStarted()) {
             callService.getClient().getAudioController().disableSpeaker();
             callService.getClient().getAudioController().unmute();
 
@@ -197,6 +197,8 @@ public class CallScreenActivity extends Activity implements SinchService.StartFa
             callService = null;
         } else {
             //prematurely kill the client and stop it from proceeding to instantiate the call
+            mAudioPlayer.stopProgressTone();
+
             callService.stopClient();
             callService = null;
         }
