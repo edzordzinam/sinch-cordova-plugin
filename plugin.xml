@@ -17,7 +17,7 @@
 
     <platform name="android">
 
-        <config-file target="res/xml/config.xml" parent="/*">
+        <config-file target="app/src/main/res/xml/config.xml" parent="/*">
             <feature name="Call">
                 <param name="android-package" value="prexition.plugin.voip.CallPlugin"/>
             </feature>
@@ -28,7 +28,7 @@
         <framework custom="true" src="src/android/gradle/prexition-voip.gradle" type="gradleReference"/>
 
         <!-- Manifest changes -->
-        <config-file parent="/manifest" target="AndroidManifest.xml">
+        <config-file parent="/manifest" target="app/src/main/AndroidManifest.xml">
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
             <uses-permission android:name="android.permission.RECORD_AUDIO"/>
@@ -40,7 +40,7 @@
 
         </config-file>
 
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application">
             <service android:name="prexition.plugin.voip.SinchService"></service>
             <activity android:name="prexition.plugin.voip.CallScreenActivity"></activity>
         </config-file>
