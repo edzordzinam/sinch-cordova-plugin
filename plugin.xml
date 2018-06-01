@@ -17,7 +17,7 @@
 
     <platform name="android">
 
-        <config-file target="app/src/main/res/xml/config.xml" parent="/*">
+        <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Call">
                 <param name="android-package" value="prexition.plugin.voip.CallPlugin"/>
             </feature>
@@ -28,7 +28,7 @@
         <framework custom="true" src="src/android/gradle/prexition-voip.gradle" type="gradleReference"/>
 
         <!-- Manifest changes -->
-        <config-file parent="/manifest" target="app/src/main/AndroidManifest.xml">
+        <config-file parent="/manifest" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
             <uses-permission android:name="android.permission.RECORD_AUDIO"/>
@@ -40,18 +40,19 @@
 
         </config-file>
 
-        <config-file target="app/src/main/AndroidManifest.xml" parent="/manifest/application">
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <service android:name="prexition.plugin.voip.SinchService"></service>
             <activity android:name="prexition.plugin.voip.CallScreenActivity"></activity>
         </config-file>
 
-        <source-file src="src/android/libs/sinch-android-rtc-3.12.4.aar" target-dir="libs" framework="true"/>
-        <source-file src="src/android/CallPlugin.java" target-dir="src/prexition/plugin/voip/"/>
-        <source-file src="src/android/AudioPlayer.java" target-dir="src/prexition/plugin/voip/"/>
-        <source-file src="src/android/SinchService.java" target-dir="src/prexition/plugin/voip/"/>
-        <source-file src="src/android/JSONErrorFactory.java" target-dir="src/prexition/plugin/voip/"/>
-        <source-file src="src/android/PermissionHelper.java" target-dir="src/prexition/plugin/voip/"/>
-        <source-file src="src/android/CallScreenActivity.java" target-dir="src/prexition/plugin/voip"/>
+
+        <source-file src="src/android/libs/sinch-android-rtc-3.12.4.aar" target-dir="app/libs" framework="true"/>
+        <source-file src="src/android/CallPlugin.java" target-dir="app/prexition/plugin/voip/"/>
+        <source-file src="src/android/AudioPlayer.java" target-dir="app/prexition/plugin/voip/"/>
+        <source-file src="src/android/SinchService.java" target-dir="app/prexition/plugin/voip/"/>
+        <source-file src="src/android/JSONErrorFactory.java" target-dir="app/prexition/plugin/voip/"/>
+        <source-file src="src/android/PermissionHelper.java" target-dir="app/prexition/plugin/voip/"/>
+        <source-file src="src/android/CallScreenActivity.java" target-dir="app/prexition/plugin/voip"/>
 
         <resource-file src="src/android/res/raw/progress_tone.wav" target="res/raw/progress_tone.wav"/>
 
@@ -74,12 +75,15 @@
         <resource-file src="src/android/res/mipmap-xxxhdpi/hangup.png" target="res/mipmap-xxxhdpi/hangup.png"/>
 
 
+        <resource-file src="src/android/res/drawable/ic_stat_l27.png" target="res/drawable/ic_stat_l27.png"/>
+
         <resource-file src="src/android/res/drawable/roundcorner.xml" target="res/drawable/roundcorner.xml"/>
         <resource-file src="src/android/res/drawable/roundcorner_black.xml" target="res/drawable/roundcorner_black.xml"/>
 
         <resource-file src="src/android/res/layout/activity_call_screen.xml" target="res/layout/activity_call_screen.xml" />
         <resource-file src="src/android/res/values/colors.xml" target="res/values/colors.xml" />
         <resource-file src="src/android/res/values/styles.xml" target="res/values/styles.xml" />
+
 
     </platform>
 

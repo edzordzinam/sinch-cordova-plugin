@@ -1,6 +1,6 @@
 {
   "name": "prexition-plugin-voip",
-  "version": "1.0.0-dev",
+  "version": "1.0.1-dev",
   "description": "Sinch VOIP Plugin",
   "cordova": {
     "id": "prexition-plugin-voip",
