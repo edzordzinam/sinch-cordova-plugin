@@ -47,7 +47,7 @@
         </config-file>
 
 
-        <source-file src="src/android/libs/sinch-android-rtc-3.13.0.aar" target-dir="app/libs" framework="true"/>
+        <source-file src="src/android/libs/sinch-android-rtc-3.12.9.aar" target-dir="app/libs" framework="true"/>
         <source-file src="src/android/CallPlugin.java" target-dir="src/prexition/plugin/voip/"/>
         <source-file src="src/android/AudioPlayer.java" target-dir="src/prexition/plugin/voip/"/>
         <source-file src="src/android/SinchService.java" target-dir="src/prexition/plugin/voip/"/>
