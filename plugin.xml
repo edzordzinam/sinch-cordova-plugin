@@ -36,6 +36,7 @@
             <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
             <uses-permission android:name="android.permission.SEND_SMS"/>
 
+
             <uses-feature android:name="android.hardware.microphone" android:required="false"/>
 
         </config-file>
@@ -46,7 +47,7 @@
         </config-file>
 
 
-        <source-file src="src/android/libs/sinch-android-rtc-3.12.7.aar" target-dir="app/libs" framework="true"/>
+        <source-file src="src/android/libs/sinch-android-rtc-3.13.0.aar" target-dir="app/libs" framework="true"/>
         <source-file src="src/android/CallPlugin.java" target-dir="app/prexition/plugin/voip/"/>
         <source-file src="src/android/AudioPlayer.java" target-dir="app/prexition/plugin/voip/"/>
         <source-file src="src/android/SinchService.java" target-dir="app/prexition/plugin/voip/"/>
