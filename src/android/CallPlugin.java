@@ -5,8 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 
-import android.app.PendingIntent;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -46,12 +44,7 @@ public class CallPlugin extends CordovaPlugin {
 
 
     private void sendSMS(Context context) {
-        if (this.cordova.getActivity().getPackageManager().hasSystemFeature("android.hardware.telephony")) {
-            int n;
-            PendingIntent sentIntent = PendingIntent.getBroadcast((Context) this.cordova.getActivity(), (int) 0, (Intent) new Intent("SENDING_SMS"), (int) 0);
-            SmsManager sms = SmsManager.getDefault();
-            sms.sendTextMessage(this.phoneNumber, null, this.message, sentIntent, (PendingIntent) null);
-        }
+
     }
 
     @Override
@@ -88,17 +81,7 @@ public class CallPlugin extends CordovaPlugin {
 
 
         } else if (action.equals("sendSMS")) {
-            phoneNumber = data.getString(0);
-            message = data.getString(1);
 
-            if (!hasSMSPermissions()) {
-                Log.d(TAG, "Requesting permissions from user");
-                callbackContext.error("Permission not granted");
-                PermissionHelper.requestPermissions(this, 1, sms_permissions);
-                return false;
-            }
-
-            this.sendSMS(context);
         }
 
 
@@ -114,7 +97,7 @@ public class CallPlugin extends CordovaPlugin {
         return true;
     }
 
-    public boolean hasSMSPermissions(){
+    public boolean hasSMSPermissions() {
         for (String p : sms_permissions) {
             if (!PermissionHelper.hasPermission(this, p)) {
                 return false;
@@ -139,7 +122,6 @@ public class CallPlugin extends CordovaPlugin {
                 break;
 
             case 1:
-                this.sendSMS(this.cordova.getActivity().getApplicationContext());
                 break;
         }
     }
