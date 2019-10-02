@@ -56,8 +56,8 @@ NSString* callClientStartedCallbackId;
     //start the phone call
     if (!_client) {
          [self.lblStatus setText:@"Starting call service"];
-        _client = [Sinch clientWithApplicationKey:@"******"
-                                applicationSecret:@"******"
+        _client = [Sinch clientWithApplicationKey:@"XXXXXXXXXXXXX"
+                                applicationSecret:@"XXXXXXXXXXXXX"
                                   environmentHost:@"clientapi.sinch.com"
                                            userId:self.userId];
         

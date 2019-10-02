@@ -9,8 +9,7 @@
       "ios"
     ]
   },
-  "scripts": {
-  },
+  "scripts": {},
   "author": "Prexition",
   "license": "Apache-2.0",
   "engines": {
@@ -20,6 +19,5 @@
       }
     }
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

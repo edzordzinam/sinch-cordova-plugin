@@ -14,8 +14,8 @@ import java.util.Map;
 
 public class SinchService {
 
-    private static final String APP_KEY = "******";
-    private static final String APP_SECRET = "******";
+    private static final String APP_KEY = "XXXXXXXXXXXXx";
+    private static final String APP_SECRET = "YYYYYYYYYYYYY";
     private static final String ENVIRONMENT = "clientapi.sinch.com";
 
     public static final String CALL_ID = "CALL_ID";
